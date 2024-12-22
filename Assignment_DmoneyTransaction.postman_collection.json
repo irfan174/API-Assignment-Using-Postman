@@ -1,0 +1,5518 @@
+{
+	"info": {
+		"_postman_id": "19e301bc-17d0-44b0-bacd-0e61dff8de84",
+		"name": "Assignment_DmoneyTransaction",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25267926"
+	},
+	"item": [
+		{
+			"name": "Test Cases - Login",
+			"item": [
+				{
+					"name": "Negative scenario",
+					"item": [
+						{
+							"name": "login_Invalid Email",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"invalid_email\", \"admin@roadtocareers.net\")\r",
+											"pm.environment.set(\"valid_password\", \"1234\")\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(\"Email:\", pm.environment.get(\"invalid_email\"))\r",
+											"console.log(\"Password:\", pm.environment.get(\"valid_password\"))\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Login with invalid email; Validate the Status code: 404\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(404)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Login with invalid email; Validate the message: User not found\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"User not found\") \r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{invalid_email}}\",\r\n    \"password\": \"{{valid_password}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login_Invalid Password",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"valid_email\", \"admin@roadtocareer.net\")\r",
+											"pm.environment.set(\"invalid_password\", \"12345\")\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(\"Email:\", pm.environment.get(\"valid_email\"))\r",
+											"console.log(\"Password:\", pm.environment.get(\"invalid_password\"))\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Login with invalid password; Validate the Status code: 401\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(401)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Login with invalid Password; Validate the response message: Password incorrect \", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Password incorrect\") \r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{valid_email}}\",\r\n    \"password\":\"{{invalid_password}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login_Invalid Email & Password",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"invalid_email\", \"admin@roadtocareers.net\")\r",
+											"pm.environment.set(\"invalid_password\", \"12345\")\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(\"Email:\", pm.environment.get(\"invalid_email\"))\r",
+											"console.log(\"Password:\", pm.environment.get(\"invalid_password\"))\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Login with invalid Email and Password; Validate the Status code: 404\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(404)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Login with invalid Email and Password; Validate the response message: User not found\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"User not found\") \r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{invalid_email}}\",\r\n    \"password\":\"{{invalid_password}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								},
+								"description": "Hit the Login request with Invalid Email and invalid Password"
+							},
+							"response": []
+						},
+						{
+							"name": "login_Empty body",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"invalid_email\", \"\")\r",
+											"pm.environment.set(\"invalid_password\", \"\")\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(\"Email:\", pm.environment.get(\"invalid_email\"))\r",
+											"console.log(\"Password:\", pm.environment.get(\"invalid_password\"))\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Login with Emoty values; Validate the Status code: 400\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"login with Empty values; Validate the response message: Please check the request body and try again\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Please check the request body and try again\") \r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{invalid_email}}\",\r\n    \"password\":\"{{invalid_password}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenario",
+					"item": [
+						{
+							"name": "login_Valid Credentials",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"valid_email\", \"admin@roadtocareer.net\")\r",
+											"pm.environment.set(\"valid_password\", \"1234\")\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(\"Email:\", pm.environment.get(\"valid_email\"))\r",
+											"console.log(\"Password:\", pm.environment.get(\"valid_password\"))\r",
+											"const responseData = pm.response.json()\r",
+											"const token = responseData.token\r",
+											"console.log(token)\r",
+											"pm.environment.set(\"authToken\", token)\r",
+											"\r",
+											"pm.test(\"Login with valid credentials; Validate the Status code: 200\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(200)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Login with valid credentials; Validate the response\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Login successful\")\r",
+											"\r",
+											"    pm.expect(responseData).have.property(\"token\") \r",
+											"    \r",
+											"    pm.expect(responseData).have.property(\"role\")\r",
+											"    pm.expect(responseData.role).to.eql(\"Admin\")\r",
+											"\r",
+											"    pm.expect(responseData).have.property(\"expiresIn\")\r",
+											"    pm.expect(responseData.expiresIn).to.eql(\"1h\")\r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{valid_email}}\",\r\n    \"password\":\"{{valid_password}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "login_Valid Credentials",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"{{valid_email}}\",\r\n    \"password\":\"{{valid_password}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/user/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"user",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sun, 15 Dec 2024 09:37:54 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "Apache"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express, Phusion Passenger(R) 6.0.23"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"110-FbpMlkVo9X37NCiqrkn6QQg764g\""
+										},
+										{
+											"key": "Content-Length",
+											"value": "272"
+										},
+										{
+											"key": "Status",
+											"value": "200 OK"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5, max=100"
+										},
+										{
+											"key": "Connection",
+											"value": "Keep-Alive"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Login successful\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyIjoiYWRtaW5Acm9hZHRvY2FyZWVyLm5ldCIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTczNDI1NTQ3NCwiZXhwIjoxNzM0MjU5MDc0fQ.ebE9iuiqVwrVN5BuQG-cEEtmWsoXW1AfYeCv0hSmHXo\",\n    \"role\": \"Admin\",\n    \"expiresIn\": \"1h\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Transaction list",
+			"item": [
+				{
+					"name": "Negative scenarios",
+					"item": [
+						{
+							"name": "transaction list_empty token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Get transaction list with empty token; Validate the Status code: 401\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(401)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Get transaction list with empty token; Validate the respone message: No Token Found! \", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"No Token Found!\")\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/list",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "transaction list_invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Get transaction list with invalid token; Validate the Status code: 403\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(403)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Get transaction list with invalid token; Validate the respone message: Token invalid! \", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Token invalid!\")\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/list",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "transaction list_expired token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Get transaction list with expired token; Validate the Status code: 403\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(403)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Get transaction list with expired token; Validate the respone message: Token invalid! \", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Token expired!\")\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/list",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenarios",
+					"item": [
+						{
+							"name": "transaction list_valid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Get transaction list with valid token; Validate the Status code: 200\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(200)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Get transaction list with Valid token; Validate the respone message: Transaction list \", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Transaction list\")\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/list",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Create User (Agent)",
+			"item": [
+				{
+					"name": "Negative scenarios",
+					"item": [
+						{
+							"name": "create user - Agent - empty fields",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentName = \"\"\r",
+											"const agentEmail = \"\"\r",
+											"const agentPassword = \"\"\r",
+											"const agentPhone = \"\"\r",
+											"const agentNID = \"\"\r",
+											"const userRole = \"Agent\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", agentName)\r",
+											"pm.collectionVariables.set(\"email\", agentEmail)\r",
+											"pm.collectionVariables.set(\"password\", agentPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", agentPhone)\r",
+											"pm.collectionVariables.set(\"nid\", agentNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const name = pm.collectionVariables.get(\"name\")\r",
+											"const email = pm.collectionVariables.get(\"email\")\r",
+											"const password = pm.collectionVariables.get(\"password\")\r",
+											"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+											"const nid = pm.collectionVariables.get(\"nid\")\r",
+											"const role = pm.collectionVariables.get(\"role\")\r",
+											"\r",
+											"console.log(\"Agent name:\", name)\r",
+											"console.log(\"Agent email:\", email)\r",
+											"console.log(\"Agent password:\", password)\r",
+											"console.log(\"Agent phone number:\", phone)\r",
+											"console.log(\"Agent nid:\", nid)\r",
+											"console.log(\"User role:\", role)\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate user creation - Agent (Empty fields); Validate the Status code: 400\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Agent (Empty fields); Validate the message: \\\"name\\\" is not allowed to be empty\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"\\\"name\\\" is not allowed to be empty\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create user - Agent - invalid phone",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let uniqueValue\r",
+											"do {\r",
+											"    uniqueValue = pm.variables.replaceIn('{{$randomInt}}')\r",
+											"}\r",
+											"while (uniqueValue.length !== 2)\r",
+											"pm.variables.set(\"uniqueValue\", uniqueValue)\r",
+											"\r",
+											"const agentName = \"Test agent\" + uniqueValue\r",
+											"const agentEmail = \"agent\" +uniqueValue+ \"@test.com\"\r",
+											"const agentPassword = \"1234\"\r",
+											"const agentPhone = \"01706364\" + uniqueValue\r",
+											"const agentNID = \"123456789\"\r",
+											"const userRole = \"Agent\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", agentName)\r",
+											"pm.collectionVariables.set(\"email\", agentEmail)\r",
+											"pm.collectionVariables.set(\"password\", agentPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", agentPhone)\r",
+											"pm.collectionVariables.set(\"nid\", agentNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate user creation - Agent (invalid phone number); Validate the Status code: 400\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Agent (invalid phone number); Validate the message: \\\"phone_number\\\" length must be at least 11 characters long\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"\\\"phone_number\\\" length must be at least 11 characters long\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenarios",
+					"item": [
+						{
+							"name": "create user - Agent",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let uniqueValue\r",
+											"do {\r",
+											"    uniqueValue = pm.variables.replaceIn('{{$randomInt}}')\r",
+											"}\r",
+											"while (uniqueValue.length !== 3)\r",
+											"pm.variables.set(\"uniqueValue\", uniqueValue)\r",
+											"\r",
+											"const agentName = \"Test agent\" + uniqueValue\r",
+											"const agentEmail = \"agent\" +uniqueValue+ \"@test.com\"\r",
+											"const agentPassword = \"1234\"\r",
+											"const agentPhone = \"01706364\" + uniqueValue\r",
+											"const agentNID = \"123456789\"\r",
+											"const userRole = \"Agent\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", agentName)\r",
+											"pm.collectionVariables.set(\"email\", agentEmail)\r",
+											"pm.collectionVariables.set(\"password\", agentPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", agentPhone)\r",
+											"pm.collectionVariables.set(\"agent_mumber\", agentPhone)\r",
+											"pm.collectionVariables.set(\"nid\", agentNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)\r",
+											"\r",
+											"pm.collectionVariables.set(\"balance_agent\", 0)\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const name = pm.collectionVariables.get(\"name\")\r",
+											"const email = pm.collectionVariables.get(\"email\")\r",
+											"const password = pm.collectionVariables.get(\"password\")\r",
+											"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+											"const nid = pm.collectionVariables.get(\"nid\")\r",
+											"const role = pm.collectionVariables.get(\"role\")\r",
+											"\r",
+											"console.log(\"Agent name:\", name)\r",
+											"console.log(\"Agent email:\", email)\r",
+											"console.log(\"Agent password:\", password)\r",
+											"console.log(\"Agent phone number:\", phone)\r",
+											"console.log(\"Agent nid:\", nid)\r",
+											"console.log(\"User role:\", role)\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"const userID = responseData.user.id\r",
+											"pm.collectionVariables.set(\"userId\", userID)\r",
+											"\r",
+											"pm.test(\"Validate user creation - Agent; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Agent; Validate the message: User created\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"User created\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate agent info after creating an Agent; id, name, email, password, phone, nid, role\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"user\")\r",
+											"    pm.expect(responseData).have.nested.property(\"user.id\")\r",
+											"    pm.expect(responseData.user.name).to.eql(name)\r",
+											"    pm.expect(responseData.user.email).to.eql(email)\r",
+											"    pm.expect(responseData.user.password).to.eql(password)\r",
+											"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+											"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+											"    pm.expect(responseData.user.role).to.eql(role)\r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Get Agent details",
+			"item": [
+				{
+					"name": "Negative scenario",
+					"item": [
+						{
+							"name": "get user details - invalid Agent id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Get user details - Agent (Invalid user id); Validate the Status code: 404\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(404)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Get user details - Agent (Invalid user id); Validate the message: User not found\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"User not found\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/search/id/{{invalidUserId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"search",
+										"id",
+										"{{invalidUserId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenario",
+					"item": [
+						{
+							"name": "get user details - Agent",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const name = pm.collectionVariables.get(\"name\")\r",
+											"const email = pm.collectionVariables.get(\"email\")\r",
+											"const password = pm.collectionVariables.get(\"password\")\r",
+											"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+											"const nid = pm.collectionVariables.get(\"nid\")\r",
+											"const role = pm.collectionVariables.get(\"role\")\r",
+											"const userId = pm.collectionVariables.get(\"userId\")\r",
+											"\r",
+											"console.log(\"Agent details who is added =\")\r",
+											"console.log(\"Agent user id:\", userId)\r",
+											"console.log(\"Agent name:\", name)\r",
+											"console.log(\"Agent email:\", email)\r",
+											"console.log(\"Agent password:\", password)\r",
+											"console.log(\"Agent phone number:\", phone)\r",
+											"console.log(\"Agent nid:\", nid)\r",
+											"console.log(\"User role:\", role)\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Get user details - Agent (Valid user id); Validate the Status code: 200\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(200)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Get user details - Agent (Valid user id); Validate the message: User found\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"User found\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Get user details - Agent (Valid user id); name, email, password, phone, nid, role\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"user\")\r",
+											"    pm.expect(responseData).have.nested.property(\"user.id\")\r",
+											"    pm.expect(responseData.user.name).to.eql(name)\r",
+											"    pm.expect(responseData.user.email).to.eql(email)\r",
+											"    pm.expect(responseData.user.password).to.eql(password)\r",
+											"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+											"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+											"    pm.expect(responseData.user.role).to.eql(role)\r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/search/id/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"search",
+										"id",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Create  User (Agent - already exist)",
+			"item": [
+				{
+					"name": "create user - Agent - Already created",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const userID = pm.collectionVariables.get(\"userId\")\r",
+									"if (userID) {\r",
+									"\r",
+									"    pm.test(\"Validate user creation - Agent (who is already created); User ID already exist\", function () {\r",
+									"        pm.expect(userID).to.not.be.null\r",
+									"        pm.expect(userID).to.not.equal(\"\")\r",
+									"    });\r",
+									"    console.log(\"User already exists. User ID:\", userID)\r",
+									"}\r",
+									"\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Validate user creation - Agent (who is already created); Validate the Status code: 208\", function()\r",
+									"{\r",
+									"    pm.response.to.have.status(208)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate user creation - Agent (who is already created); Validate the response message: User already exists\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User already exists\")\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Create User (Merchant)",
+			"item": [
+				{
+					"name": "Negative scenarios",
+					"item": [
+						{
+							"name": "create user - Merchant - empty fields Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const merchantName = \"\"\r",
+											"const merchantEmail = \"\"\r",
+											"const merchantPassword = \"\"\r",
+											"const merchantPhone = \"\"\r",
+											"const merchantNID = \"\"\r",
+											"const userRole = \"Merchant\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", merchantName)\r",
+											"pm.collectionVariables.set(\"email\", merchantEmail)\r",
+											"pm.collectionVariables.set(\"password\", merchantPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", merchantPhone)\r",
+											"pm.collectionVariables.set(\"nid\", merchantNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const name = pm.collectionVariables.get(\"name\")\r",
+											"const email = pm.collectionVariables.get(\"email\")\r",
+											"const password = pm.collectionVariables.get(\"password\")\r",
+											"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+											"const nid = pm.collectionVariables.get(\"nid\")\r",
+											"const role = pm.collectionVariables.get(\"role\")\r",
+											"\r",
+											"console.log(\"Merchant name:\", name)\r",
+											"console.log(\"Merchant email:\", email)\r",
+											"console.log(\"Merchant password:\", password)\r",
+											"console.log(\"Merchant phone number:\", phone)\r",
+											"console.log(\"Merchant nid:\", nid)\r",
+											"console.log(\"User role:\", role)\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate user creation - Merchant (Empty fields); Validate the Status code: 400\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Merchant (Empty fields); Validate the message: \\\"name\\\" is not allowed to be empty\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"\\\"name\\\" is not allowed to be empty\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create user - Merchant - invalid phone",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let uniqueValue\r",
+											"do {\r",
+											"    uniqueValue = pm.variables.replaceIn('{{$randomInt}}')\r",
+											"}\r",
+											"while (uniqueValue.length !== 2)\r",
+											"pm.variables.set(\"uniqueValue\", uniqueValue)\r",
+											"\r",
+											"const merchantName = \"Test Merchant\" + uniqueValue\r",
+											"const merchantEmail = \"Merchant\" +uniqueValue+ \"@test.com\"\r",
+											"const merchantPassword = \"1234\"\r",
+											"const merchantPhone = \"01706364\" + uniqueValue\r",
+											"const merchantNID = \"123456789\"\r",
+											"const userRole = \"Merchant\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", merchantName)\r",
+											"pm.collectionVariables.set(\"email\", merchantEmail)\r",
+											"pm.collectionVariables.set(\"password\", merchantPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", merchantPhone)\r",
+											"pm.collectionVariables.set(\"nid\", merchantNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate user creation - Merchant (invalid phone number); Validate the Status code: 400\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Merchant (invalid phone number); Validate the message: \\\"phone_number\\\" length must be at least 11 characters long\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"\\\"phone_number\\\" length must be at least 11 characters long\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenario",
+					"item": [
+						{
+							"name": "create user - Merchant",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let uniqueValue\r",
+											"do {\r",
+											"    uniqueValue = pm.variables.replaceIn('{{$randomInt}}')\r",
+											"}\r",
+											"while (uniqueValue.length !== 3)\r",
+											"pm.variables.set(\"uniqueValue\", uniqueValue)\r",
+											"\r",
+											"const merchantName = \"Test Merchant\" + uniqueValue\r",
+											"const merchantEmail = \"merchant\" +uniqueValue+ \"@test.com\"\r",
+											"const merchantPassword = \"1234\"\r",
+											"const merchantPhone = \"01706364\" + uniqueValue\r",
+											"const merchantNID = \"123456789\"\r",
+											"const userRole = \"Merchant\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", merchantName)\r",
+											"pm.collectionVariables.set(\"email\", merchantEmail)\r",
+											"pm.collectionVariables.set(\"password\", merchantPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", merchantPhone)\r",
+											"pm.collectionVariables.set(\"merchant_number\", merchantPhone)\r",
+											"pm.collectionVariables.set(\"nid\", merchantNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)\r",
+											"\r",
+											"pm.collectionVariables.set(\"balance_merchant\", 0)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const name = pm.collectionVariables.get(\"name\")\r",
+											"const email = pm.collectionVariables.get(\"email\")\r",
+											"const password = pm.collectionVariables.get(\"password\")\r",
+											"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+											"const nid = pm.collectionVariables.get(\"nid\")\r",
+											"const role = pm.collectionVariables.get(\"role\")\r",
+											"\r",
+											"console.log(\"Merchant name:\", name)\r",
+											"console.log(\"Merchant email:\", email)\r",
+											"console.log(\"Merchant password:\", password)\r",
+											"console.log(\"Merchant phone number:\", phone)\r",
+											"console.log(\"Merchant nid:\", nid)\r",
+											"console.log(\"User role:\", role)\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"const userID = responseData.user.id\r",
+											"pm.collectionVariables.set(\"userId\", userID)\r",
+											"\r",
+											"pm.test(\"Validate user creation - Merchant; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Merchant; Validate the message: User created\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"User created\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate agent info after creating an Merchant; id, name, email, password, phone, nid, role\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"user\")\r",
+											"    pm.expect(responseData).to.have.nested.property(\"user.id\")\r",
+											"    pm.expect(responseData.user.name).to.eql(name)\r",
+											"    pm.expect(responseData.user.email).to.eql(email)\r",
+											"    pm.expect(responseData.user.password).to.eql(password)\r",
+											"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+											"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+											"    pm.expect(responseData.user.role).to.eql(role)\r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Get Merchant details",
+			"item": [
+				{
+					"name": "get user details - Merchant",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const name = pm.collectionVariables.get(\"name\")\r",
+									"const email = pm.collectionVariables.get(\"email\")\r",
+									"const password = pm.collectionVariables.get(\"password\")\r",
+									"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+									"const nid = pm.collectionVariables.get(\"nid\")\r",
+									"const role = pm.collectionVariables.get(\"role\")\r",
+									"const userId = pm.collectionVariables.get(\"userId\")\r",
+									"\r",
+									"console.log(\"Merchant details who is added =\")\r",
+									"console.log(\"Merchant user id:\", userId)\r",
+									"console.log(\"Merchant name:\", name)\r",
+									"console.log(\"Merchant email:\", email)\r",
+									"console.log(\"Merchant password:\", password)\r",
+									"console.log(\"Merchant phone number:\", phone)\r",
+									"console.log(\"Merchant nid:\", nid)\r",
+									"console.log(\"Merchant role:\", role)\r",
+									"\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Get user details - Merchant (Valid user id); Validate the Status code: 200\", function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get user details - Merchant (Valid user id); Validate the message: User found\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).to.have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User found\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get user details - Merchant (Valid user id); name, email, password, phone, nid, role\", function()\r",
+									"{\r",
+									"    pm.expect(responseData).to.have.property(\"user\")\r",
+									"    pm.expect(responseData).to.have.nested.property(\"user.id\")\r",
+									"    pm.expect(responseData.user.name).to.eql(name)\r",
+									"    pm.expect(responseData.user.email).to.eql(email)\r",
+									"    pm.expect(responseData.user.password).to.eql(password)\r",
+									"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+									"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+									"    pm.expect(responseData.user.role).to.eql(role)\r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/search/id/{{userId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"search",
+								"id",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Create User (Customer 1)",
+			"item": [
+				{
+					"name": "Negative Scenarios",
+					"item": [
+						{
+							"name": "create user - Customer - empty fields",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const customerName = \"\"\r",
+											"const customerEmail = \"\"\r",
+											"const customerPassword = \"\"\r",
+											"const customerPhone = \"\"\r",
+											"const customerNID = \"\"\r",
+											"const userRole = \"Customer\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", customerName)\r",
+											"pm.collectionVariables.set(\"email\", customerEmail)\r",
+											"pm.collectionVariables.set(\"password\", customerPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", customerPhone)\r",
+											"pm.collectionVariables.set(\"nid\", customerNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const name = pm.collectionVariables.get(\"name\")\r",
+											"const email = pm.collectionVariables.get(\"email\")\r",
+											"const password = pm.collectionVariables.get(\"password\")\r",
+											"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+											"const nid = pm.collectionVariables.get(\"nid\")\r",
+											"const role = pm.collectionVariables.get(\"role\")\r",
+											"\r",
+											"console.log(\"Customer name:\", name)\r",
+											"console.log(\"Customer email:\", email)\r",
+											"console.log(\"Customer password:\", password)\r",
+											"console.log(\"Customer phone number:\", phone)\r",
+											"console.log(\"Customer nid:\", nid)\r",
+											"console.log(\"User role:\", role)\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate user creation - Customer (Empty fields); Validate the Status code: 400\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Customer (Empty fields); Validate the message: \\\"name\\\" is not allowed to be empty\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"\\\"name\\\" is not allowed to be empty\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create user - Customer - invalid phone",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let uniqueValue\r",
+											"do {\r",
+											"    uniqueValue = pm.variables.replaceIn('{{$randomInt}}')\r",
+											"}\r",
+											"while (uniqueValue.length !== 2)\r",
+											"pm.variables.set(\"uniqueValue\", uniqueValue)\r",
+											"\r",
+											"const customerName = \"Test Customer\" + uniqueValue\r",
+											"const customerEmail = \"Customer\" +uniqueValue+ \"@test.com\"\r",
+											"const customerPassword = \"1234\"\r",
+											"const customerPhone = \"01706364\" + uniqueValue\r",
+											"const customerNID = \"123456789\"\r",
+											"const userRole = \"Merchant\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", customerName)\r",
+											"pm.collectionVariables.set(\"email\", customerEmail)\r",
+											"pm.collectionVariables.set(\"password\", customerPassword)\r",
+											"pm.collectionVariables.set(\"phone_number\", customerPhone)\r",
+											"pm.collectionVariables.set(\"nid\", customerNID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate user creation - Customer (invalid phone number); Validate the Status code: 400\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(400)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Customer (invalid phone number); Validate the message: \\\"phone_number\\\" length must be at least 11 characters long\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"\\\"phone_number\\\" length must be at least 11 characters long\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenarios",
+					"item": [
+						{
+							"name": "create user - Customer 1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let uniqueValue\r",
+											"do {\r",
+											"    uniqueValue = pm.variables.replaceIn('{{$randomInt}}')\r",
+											"}\r",
+											"while (uniqueValue.length !== 3)\r",
+											"pm.variables.set(\"uniqueValue\", uniqueValue)\r",
+											"\r",
+											"const customer1Name = \"Test Customer1_\" + uniqueValue\r",
+											"const customer1Email = \"customer1\" +uniqueValue+ \"@test.com\"\r",
+											"const customer1Password = \"1234\"\r",
+											"const customer1Phone = \"01706364\" + uniqueValue\r",
+											"const customer1NID = \"123456789\"\r",
+											"const userRole = \"Customer\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"name\", customer1Name)\r",
+											"pm.collectionVariables.set(\"email\", customer1Email)\r",
+											"pm.collectionVariables.set(\"password\", customer1Password)\r",
+											"pm.collectionVariables.set(\"phone_number\", customer1Phone)\r",
+											"pm.collectionVariables.set(\"customer1_number\", customer1Phone)\r",
+											"pm.collectionVariables.set(\"nid\", customer1NID)\r",
+											"pm.collectionVariables.set(\"role\", userRole)\r",
+											"\r",
+											"pm.collectionVariables.set(\"balance_customer1\", 0)\r",
+											"pm.collectionVariables.set(\"limit_customer1\", 10000)\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const name = pm.collectionVariables.get(\"name\")\r",
+											"const email = pm.collectionVariables.get(\"email\")\r",
+											"const password = pm.collectionVariables.get(\"password\")\r",
+											"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+											"const nid = pm.collectionVariables.get(\"nid\")\r",
+											"const role = pm.collectionVariables.get(\"role\")\r",
+											"\r",
+											"console.log(\"Customer 1 name:\", name)\r",
+											"console.log(\"Customer 1 email:\", email)\r",
+											"console.log(\"Customer 1 password:\", password)\r",
+											"console.log(\"Customer 1 phone number:\", phone)\r",
+											"console.log(\"Customer 1 nid:\", nid)\r",
+											"console.log(\"User role:\", role)\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"const userID = responseData.user.id\r",
+											"pm.collectionVariables.set(\"userId\", userID)\r",
+											"\r",
+											"pm.test(\"Validate user creation - Customer 1; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate user creation - Customer 1; Validate the message: User created\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"User created\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate agent info after creating an Customer 1; id, name, email, password, phone, nid, role\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"user\")\r",
+											"    pm.expect(responseData).have.nested.property(\"user.id\")\r",
+											"    pm.expect(responseData.user.name).to.eql(name)\r",
+											"    pm.expect(responseData.user.email).to.eql(email)\r",
+											"    pm.expect(responseData.user.password).to.eql(password)\r",
+											"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+											"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+											"    pm.expect(responseData.user.role).to.eql(role)\r",
+											"\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Get User details (Customer 1)",
+			"item": [
+				{
+					"name": "get user details - Customer 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const name = pm.collectionVariables.get(\"name\")\r",
+									"const email = pm.collectionVariables.get(\"email\")\r",
+									"const password = pm.collectionVariables.get(\"password\")\r",
+									"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+									"const nid = pm.collectionVariables.get(\"nid\")\r",
+									"const role = pm.collectionVariables.get(\"role\")\r",
+									"const userId = pm.collectionVariables.get(\"userId\")\r",
+									"\r",
+									"console.log(\"Customer 1 details who is added =\")\r",
+									"console.log(\"Customer 1 user id:\", userId)\r",
+									"console.log(\"Customer 1 name:\", name)\r",
+									"console.log(\"Customer 1 email:\", email)\r",
+									"console.log(\"Customer 1 password:\", password)\r",
+									"console.log(\"Customer 1 phone number:\", phone)\r",
+									"console.log(\"Customer 1 nid:\", nid)\r",
+									"console.log(\"Role:\", role)\r",
+									"\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Get user details - Customer 1 (Valid user id); Validate the Status code: 200\", function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get user details - Customer 1 (Valid user id); Validate the message: User found\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User found\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get user details - Customer 1 (Valid user id); name, email, password, phone, nid, role\", function()\r",
+									"{\r",
+									"    pm.expect(responseData).have.property(\"user\")\r",
+									"    pm.expect(responseData).have.nested.property(\"user.id\")\r",
+									"    pm.expect(responseData.user.name).to.eql(name)\r",
+									"    pm.expect(responseData.user.email).to.eql(email)\r",
+									"    pm.expect(responseData.user.password).to.eql(password)\r",
+									"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+									"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+									"    pm.expect(responseData.user.role).to.eql(role)\r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/search/id/{{userId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"search",
+								"id",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Create User (Customer 2)",
+			"item": [
+				{
+					"name": "create user - Customer 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let uniqueValue\r",
+									"do {\r",
+									"    uniqueValue = pm.variables.replaceIn('{{$randomInt}}')\r",
+									"}\r",
+									"while (uniqueValue.length !== 3)\r",
+									"pm.variables.set(\"uniqueValue\", uniqueValue)\r",
+									"\r",
+									"const customer2Name = \"Test Customer2_\" + uniqueValue\r",
+									"const customer2Email = \"customer2\" +uniqueValue+ \"@test.com\"\r",
+									"const customer2Password = \"1234\"\r",
+									"const customer2Phone = \"01706364\" + uniqueValue\r",
+									"const customer2NID = \"123456789\"\r",
+									"const userRole = \"Customer\"\r",
+									"\r",
+									"pm.collectionVariables.set(\"name\", customer2Name)\r",
+									"pm.collectionVariables.set(\"email\", customer2Email)\r",
+									"pm.collectionVariables.set(\"password\", customer2Password)\r",
+									"pm.collectionVariables.set(\"phone_number\", customer2Phone)\r",
+									"pm.collectionVariables.set(\"customer2_number\", customer2Phone)\r",
+									"pm.collectionVariables.set(\"nid\", customer2NID)\r",
+									"pm.collectionVariables.set(\"role\", userRole)\r",
+									"\r",
+									"pm.collectionVariables.set(\"balance_customer2\", 0)\r",
+									"pm.collectionVariables.set(\"limit_customer2\", 10000)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const name = pm.collectionVariables.get(\"name\")\r",
+									"const email = pm.collectionVariables.get(\"email\")\r",
+									"const password = pm.collectionVariables.get(\"password\")\r",
+									"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+									"const nid = pm.collectionVariables.get(\"nid\")\r",
+									"const role = pm.collectionVariables.get(\"role\")\r",
+									"\r",
+									"console.log(\"Customer 2 name:\", name)\r",
+									"console.log(\"Customer 2 email:\", email)\r",
+									"console.log(\"Customer 2 password:\", password)\r",
+									"console.log(\"Customer 2 phone number:\", phone)\r",
+									"console.log(\"Customer 2 nid:\", nid)\r",
+									"console.log(\"User role:\", role)\r",
+									"\r",
+									"const responseData = pm.response.json()\r",
+									"const userID = responseData.user.id\r",
+									"pm.collectionVariables.set(\"userId\", userID)\r",
+									"\r",
+									"pm.test(\"Validate user creation - Customer 2; Validate the Status code: 201\", function()\r",
+									"{\r",
+									"    pm.response.to.have.status(201)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate user creation - Customer 2; Validate the message: User created\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User created\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate agent info after creating an Customer 2; id, name, email, password, phone, nid, role\", function()\r",
+									"{\r",
+									"    pm.expect(responseData).have.property(\"user\")\r",
+									"    pm.expect(responseData).have.nested.property(\"user.id\")\r",
+									"    pm.expect(responseData.user.name).to.eql(name)\r",
+									"    pm.expect(responseData.user.email).to.eql(email)\r",
+									"    pm.expect(responseData.user.password).to.eql(password)\r",
+									"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+									"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+									"    pm.expect(responseData.user.role).to.eql(role)\r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\":\"{{name}}\",\r\n   \"email\":\"{{email}}\",\r\n   \"password\":\"{{password}}\",\r\n   \"phone_number\":\"{{phone_number}}\",\r\n   \"nid\":\"{{nid}}\",\r\n   \"role\":\"{{role}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Get User details (Customer 2)",
+			"item": [
+				{
+					"name": "get user details - Customer 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const name = pm.collectionVariables.get(\"name\")\r",
+									"const email = pm.collectionVariables.get(\"email\")\r",
+									"const password = pm.collectionVariables.get(\"password\")\r",
+									"const phone = pm.collectionVariables.get(\"phone_number\")\r",
+									"const nid = pm.collectionVariables.get(\"nid\")\r",
+									"const role = pm.collectionVariables.get(\"role\")\r",
+									"const userId = pm.collectionVariables.get(\"userId\")\r",
+									"\r",
+									"console.log(\"Customer 2 details who is added =\")\r",
+									"console.log(\"Customer 2 user id:\", userId)\r",
+									"console.log(\"Customer 2 name:\", name)\r",
+									"console.log(\"Customer 2 email:\", email)\r",
+									"console.log(\"Customer 2 password:\", password)\r",
+									"console.log(\"Customer 2 phone number:\", phone)\r",
+									"console.log(\"Customer 2 nid:\", nid)\r",
+									"console.log(\"Role:\", role)\r",
+									"\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Get user details - Customer 2 (Valid user id); Validate the Status code: 200\", function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get user details - Customer 2 (Valid user id); Validate the message: User found\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User found\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get user details - Customer 2 (Valid user id); name, email, password, phone, nid, role\", function()\r",
+									"{\r",
+									"    pm.expect(responseData).have.property(\"user\")\r",
+									"    pm.expect(responseData).have.nested.property(\"user.id\")\r",
+									"    pm.expect(responseData.user.name).to.eql(name)\r",
+									"    pm.expect(responseData.user.email).to.eql(email)\r",
+									"    pm.expect(responseData.user.password).to.eql(password)\r",
+									"    pm.expect(responseData.user.phone_number).to.eql(phone)\r",
+									"    pm.expect(responseData.user.nid).to.eql(nid)\r",
+									"    pm.expect(responseData.user.role).to.eql(role)\r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/search/id/{{userId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"search",
+								"id",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Deposit Money (SYSTEM to Agent)",
+			"item": [
+				{
+					"name": "Negative scenarios",
+					"item": [
+						{
+							"name": "S to A deposit (less than 10 tk)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentNumber = pm.collectionVariables.get(\"phone_number\")\r",
+											"const from_account = \"SYSTEM\"\r",
+											"const to_account = agentNumber\r",
+											"const amount = \"5\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"account_from\", from_account)\r",
+											"pm.collectionVariables.set(\"account_to\", to_account)\r",
+											"pm.collectionVariables.set(\"amount\", amount)\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(\"From account:\", pm.collectionVariables.get(\"account_from\"))\r",
+											"console.log(\"To account:\", pm.collectionVariables.get(\"agent_mumber\"))\r",
+											"console.log(\"Deposit amount:\", pm.collectionVariables.get(\"amount\"))\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate deposit less than 10 tk from SYSTEM to AGENT; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(208)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit less than 10 tk from SYSTEM to AGENT; Validate the message: Minimum deposit amount is 10 tk and maximum deposit amount is 10000 tk\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Minimum deposit amount is 10 tk and maximum deposit amount is 10000 tk\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{account_from}}\",\r\n  \"to_account\":\"{{account_to}}\",\r\n  \"amount\":\"{{amount}}\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/deposit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "S to A deposit (more than 10000 tk)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentNumber = pm.collectionVariables.get(\"phone_number\")\r",
+											"const from_account = \"SYSTEM\"\r",
+											"const to_account = agentNumber\r",
+											"const amount = \"50000\"\r",
+											"\r",
+											"pm.collectionVariables.set(\"account_from\", from_account)\r",
+											"pm.collectionVariables.set(\"account_to\", to_account)\r",
+											"pm.collectionVariables.set(\"amount\", amount)\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(\"From account:\", pm.collectionVariables.get(\"account_from\"))\r",
+											"console.log(\"To account:\", pm.collectionVariables.get(\"agent_mumber\"))\r",
+											"console.log(\"Deposit amount:\", pm.collectionVariables.get(\"amount\"))\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate deposit less than 10 tk from SYSTEM to AGENT; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(208)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit less than 10 tk from SYSTEM to AGENT; Validate the message: Limit exceeded. You can deposit a maximum of 10000.00 tk to this customer.\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Limit exceeded. You can deposit a maximum of 10000.00 tk to this customer.\")\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{account_from}}\",\r\n  \"to_account\":\"{{account_to}}\",\r\n  \"amount\":\"{{amount}}\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/deposit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenarios",
+					"item": [
+						{
+							"name": "S to A deposit (Valid)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentNumber = pm.collectionVariables.get(\"agent_mumber\")\r",
+											"const from_account = \"SYSTEM\"\r",
+											"const to_account = agentNumber\r",
+											"const deposit_amount = 1000\r",
+											"\r",
+											"const balance_agent = pm.collectionVariables.get(\"balance_agent\")\r",
+											"const currentBalance_agent = balance_agent + deposit_amount\r",
+											"pm.collectionVariables.set(\"balance_agent\", currentBalance_agent)\r",
+											"\r",
+											"console.log(\"Updated balance_agent in collection variables:\", pm.collectionVariables.get(\"balance_agent\"))\r",
+											"\r",
+											"\r",
+											"pm.collectionVariables.set(\"account_from\", from_account)\r",
+											"pm.collectionVariables.set(\"account_to\", to_account)\r",
+											"pm.collectionVariables.set(\"amount\", deposit_amount)\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// console.log(\"From account:\", pm.collectionVariables.get(\"account_from\"))\r",
+											"// console.log(\"To account:\", pm.collectionVariables.get(\"agent_mumber\"))\r",
+											"// console.log(\"Deposit amount:\", pm.collectionVariables.get(\"amount\"))\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"const transactionID = responseData.trnxId\r",
+											"pm.collectionVariables.set(\"transactionID\", transactionID)\r",
+											"pm.collectionVariables.set(\"balance_agent\", pm.collectionVariables.get(\"amount\"))\r",
+											"\r",
+											"pm.test(\"Validate deposit Valid amount from SYSTEM to AGENT; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate the success message: Deposit successful\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Deposit successful\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate transaction id\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"trnxId\") \r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{account_from}}\",\r\n  \"to_account\":\"{{account_to}}\",\r\n  \"amount\":\"{{amount}}\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/deposit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test cases - Check Agent balance, statement, transaction id",
+			"item": [
+				{
+					"name": "check Agent balance",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const agentCurrentBalance = pm.collectionVariables.get(\"balance_agent\")\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Agent balance; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Agent balance; Validate the successful message: User balance\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User balance\")\r",
+									"    pm.expect(responseData).have.property(\"balance\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/balance/{{agent_mumber}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"balance",
+								"{{agent_mumber}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Agent statement",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Get Agent transaction list; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get Agent transaction list; Validate the successful message: Transaction list\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"Transaction list\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get Agent transaction list; Validate the Count and Transaction\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"count\") \r",
+									"    pm.expect(responseData).have.property(\"transactions\") \r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/statement/{{agent_mumber}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"statement",
+								"{{agent_mumber}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search by Transaction ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"const amount = pm.collectionVariables.get(\"amount\")\r",
+									"const senderDebit = Number(amount)\r",
+									"const recieverDebit = \"0\"\r",
+									"const recieverDebitNum = Number(recieverDebit)\r",
+									"const recieverCredit = senderDebit\r",
+									"\r",
+									"pm.test(\"Sarch by transaction id; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Sarch by transaction id; Validate the successful message: Transaction list\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"Transaction list\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Sarch by transaction id; Validate the Count: 2\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"count\") \r",
+									"   pm.expect(responseData.count).to.equal(responseData.transactions.length)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Get Agent transaction list; Validate the Transactions values: Transaction id, description, debit and credit amount\", function()\r",
+									"{ \r",
+									"    responseData.transactions.forEach(transaction => {\r",
+									"        pm.expect(transaction).to.have.keys([\r",
+									"            \"id\",\r",
+									"            \"account\",\r",
+									"            \"from_account\",\r",
+									"            \"to_account\",\r",
+									"            \"description\",\r",
+									"            \"trnxId\",\r",
+									"            \"debit\",\r",
+									"            \"credit\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\"\r",
+									"        ])\r",
+									"\r",
+									"        pm.expect(responseData.transactions[0].trnxId).to.eql(pm.collectionVariables.get(\"transactionID\")) \r",
+									"        pm.expect(responseData.transactions[1].trnxId).to.eql(pm.collectionVariables.get(\"transactionID\")) \r",
+									"\r",
+									"        pm.expect(responseData.transactions[0].description).to.eql(\"Deposit Commission\")\r",
+									"        pm.expect(responseData.transactions[1].description).to.eql(\"Deposit\")\r",
+									"\r",
+									"        pm.expect(responseData.transactions[0].debit).to.eql(senderDebit)\r",
+									"        pm.expect(responseData.transactions[1].debit).to.eql(recieverDebitNum)\r",
+									"\r",
+									"        pm.expect(responseData.transactions[1].credit).to.eql(recieverCredit)\r",
+									"\r",
+									"\r",
+									"    })\r",
+									"\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/search/{{transactionID}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"search",
+								"{{transactionID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Deposit money (Agent to Customer 1)",
+			"item": [
+				{
+					"name": "Negative scenarios",
+					"item": [
+						{
+							"name": "A to C1 deposit (inValid: insufficient agent balance)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentNumber = pm.collectionVariables.get(\"agent_mumber\")\r",
+											"const customer1Number = pm.collectionVariables.get(\"customer1_number\")\r",
+											"const from_account = agentNumber\r",
+											"const to_account = customer1Number\r",
+											"const deposit_amount = 2000\r",
+											"\r",
+											"\r",
+											"pm.collectionVariables.set(\"account_from\", from_account)\r",
+											"pm.collectionVariables.set(\"account_to\", to_account)\r",
+											"pm.collectionVariables.set(\"amount\", deposit_amount)\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const agentCurrentBalance = pm.collectionVariables.get(\"balance_agent\")\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate deposit insufficient amount from AGENT to Customer 1; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(208)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit insufficient amount from AGENT to Customer 1; Validate the success message: Insufficient balance\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Insufficient balance\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit insufficient amount from AGENT to Customer 1; Validate the current balance of the Agent\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"currentBalance\") \r",
+											"    pm.expect(Number(responseData.currentBalance)).to.eql(Number(agentCurrentBalance))\r",
+											"\r",
+											"})\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{account_from}}\",\r\n  \"to_account\":\"{{account_to}}\",\r\n  \"amount\":\"{{amount}}\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/deposit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "A to C1 deposit (less than 10 tk) Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentNumber = pm.collectionVariables.get(\"agent_mumber\")\r",
+											"const customer1Number = pm.collectionVariables.get(\"customer1_number\")\r",
+											"const from_account = agentNumber\r",
+											"const to_account = customer1Number\r",
+											"const deposit_amount = 9\r",
+											"\r",
+											"\r",
+											"pm.collectionVariables.set(\"account_from\", from_account)\r",
+											"pm.collectionVariables.set(\"account_to\", to_account)\r",
+											"pm.collectionVariables.set(\"amount\", deposit_amount)\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Validate deposit less than 10 tk from AGENT to Customer 1; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(208)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit less than 10 tk amount from AGENT to Customer 1; Validate the message: Minimum deposit amount is 10 tk and maximum deposit amount is 10000 tk\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Minimum deposit amount is 10 tk and maximum deposit amount is 10000 tk\")\r",
+											"})\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{account_from}}\",\r\n  \"to_account\":\"{{account_to}}\",\r\n  \"amount\":\"{{amount}}\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/deposit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenario",
+					"item": [
+						{
+							"name": "A to C1 deposit (Valid)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentNumber = pm.collectionVariables.get(\"agent_mumber\")\r",
+											"const customer1Number = pm.collectionVariables.get(\"customer1_number\")\r",
+											"const from_account = agentNumber\r",
+											"const to_account = customer1Number\r",
+											"const deposit_amount = 100\r",
+											"\r",
+											"let balance_customer1 = pm.collectionVariables.get(\"balance_customer1\")\r",
+											"\r",
+											"if (balance_customer1 === 0) \r",
+											"{\r",
+											"    pm.collectionVariables.set(\"balance_customer1\", deposit_amount);\r",
+											"} \r",
+											"else \r",
+											"{\r",
+											"    const currentBalance_customer1 = balance_customer1 + deposit_amount;\r",
+											"    pm.collectionVariables.set(\"balance_customer1\", currentBalance_customer1)\r",
+											"\r",
+											"}\r",
+											"\r",
+											"pm.collectionVariables.set(\"account_from\", from_account)\r",
+											"pm.collectionVariables.set(\"account_to\", to_account)\r",
+											"pm.collectionVariables.set(\"amount\", deposit_amount)\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const c1Limit = pm.collectionVariables.get(\"limit_customer1\")\r",
+											"const deposit_amount = pm.collectionVariables.get(\"amount\")\r",
+											"const c1CurrentLimit = c1Limit - deposit_amount\r",
+											"pm.collectionVariables.set(\"limit_customer1\", c1CurrentLimit)\r",
+											"\r",
+											"console.log(\"From account:\", pm.collectionVariables.get(\"agent_mumber\"))\r",
+											"console.log(\"To account:\", pm.collectionVariables.get(\"customer1_number\"))\r",
+											"console.log(\"Deposit amount:\", pm.collectionVariables.get(\"amount\"))\r",
+											"\r",
+											"\r",
+											"const responseData = pm.response.json()\r",
+											"const commission = responseData.commission\r",
+											"const commissionNum = Number(commission)\r",
+											"\r",
+											"const agentBalance = pm.collectionVariables.get(\"balance_agent\")\r",
+											"const depositAmount = pm.collectionVariables.get(\"amount\")\r",
+											"const agentBalanceAfterDeposit = agentBalance - (depositAmount - commissionNum)\r",
+											"pm.collectionVariables.set(\"balance_agent\", agentBalanceAfterDeposit)\r",
+											"\r",
+											"\r",
+											"const transactionID = responseData.trnxId\r",
+											"pm.collectionVariables.set(\"transactionID\", transactionID)\r",
+											"\r",
+											"pm.test(\"Validate deposit Valid amount from AGENT to Customer 1; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit Valid amount from AGENT to Customer 1; Validate the success message: Deposit successful\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Deposit successful\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit Valid amount from AGENT to Customer 1; Validate transaction id\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"trnxId\") \r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validate deposit Valid amount from AGENT to Customer 1; Validate Current balance of the Agent\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"currentBalance\") \r",
+											"    pm.expect(responseData.currentBalance).to.eql(agentBalanceAfterDeposit)\r",
+											"})\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{account_from}}\",\r\n  \"to_account\":\"{{account_to}}\",\r\n  \"amount\":\"{{amount}}\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/deposit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"deposit"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test cases - Check agent balance after deposit, customer 1 limit, balance, statement",
+			"item": [
+				{
+					"name": "check Agent balance after deposit to C1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"const agentBalance = pm.collectionVariables.get(\"balance_agent\")\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check Agent balance; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Agent balance; Validate the successful message: User balance\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User balance\")\r",
+									"    pm.expect(responseData).have.property(\"balance\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/balance/{{agent_mumber}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"balance",
+								"{{agent_mumber}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check Customer 1 limit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const c1CurrentLimit = pm.collectionVariables.get(\"limit_customer1\")\r",
+									"\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 1 limit; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 1 limit; Validate the message: User limit\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User limit\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/limit/{{customer1_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"limit",
+								"{{customer1_number}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check Customer 1 statement",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 1 statement; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 1 statement; Validate the successful message: Transaction list\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"Transaction list\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 1 statement; Validate the Count of the transaction numbers\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"count\") \r",
+									"   pm.expect(responseData.count).to.equal(responseData.transactions.length)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 1 statement; Validate the Transactions values: account and to_account value for every transactions\", function()\r",
+									"{   \r",
+									"    const firstAccount = responseData.transactions[0].account;\r",
+									"    const firstToAccount = responseData.transactions[0].to_account;\r",
+									"\r",
+									"    responseData.transactions.forEach((transaction, index) => {\r",
+									"        pm.expect(transaction).to.have.keys([\r",
+									"            \"id\",\r",
+									"            \"account\",\r",
+									"            \"from_account\",\r",
+									"            \"to_account\",\r",
+									"            \"description\",\r",
+									"            \"trnxId\",\r",
+									"            \"debit\",\r",
+									"            \"credit\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\"\r",
+									"        ])\r",
+									"        pm.expect(transaction.account, `Mismatch in 'account' at transaction ${index + 1}`)\r",
+									"            .to.equal(firstAccount);\r",
+									"        pm.expect(transaction.to_account, `Mismatch in 'to_account' at transaction ${index + 1}`)\r",
+									"            .to.equal(firstToAccount);\r",
+									"\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/statement/{{customer1_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"statement",
+								"{{customer1_number}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check Customer 1 balance",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const c1CurrentBalance = pm.collectionVariables.get(\"balance_customer1\")\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 1 balance; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 1 balance; Validate the successful message: User balance\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User balance\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/balance/{{customer1_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"balance",
+								"{{customer1_number}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Customer 1 withdraw from Agent",
+			"item": [
+				{
+					"name": "Negative scenario",
+					"item": [
+						{
+							"name": "C1 withdraw from Agent (insufficient)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const agentNumber = pm.collectionVariables.get(\"agent_mumber\")\r",
+											"const customer1Number = pm.collectionVariables.get(\"customer1_number\")\r",
+											"const from_account = customer1Number\r",
+											"const to_account = agentNumber\r",
+											"const withdraw_amount = 1000\r",
+											"\r",
+											" pm.collectionVariables.set(\"account_from\", from_account)\r",
+											" pm.collectionVariables.set(\"account_to\", to_account)\r",
+											" pm.collectionVariables.set(\"amount\", withdraw_amount)\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const c1CurrentBalance = pm.collectionVariables.get(\"balance_customer1\")\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"     pm.response.to.have.status(208)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the successful message: Insufficient balance\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Insufficient balance\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the current balance of the customer 1\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"currentBalance\") \r",
+											"    pm.expect(Number(responseData.currentBalance)).to.eql(Number(c1CurrentBalance));\r",
+											"\r",
+											"})\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{account_from}}\",\r\n  \"to_account\":\"{{account_to}}\",\r\n  \"amount\":\"{{amount}}\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/withdraw",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "C1 withdraw from Agent less than 10 tk",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"     pm.response.to.have.status(208)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the successful message: Minimum withdraw amount is 10 tk\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Minimum withdraw amount is 10 tk\")\r",
+											"})\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{customer1_number}}\",\r\n  \"to_account\":\"{{agent_mumber}}\",\r\n  \"amount\":\"5\" \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/withdraw",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenarios",
+					"item": [
+						{
+							"name": "C1 withdraw from Agent",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"const c1CurrentBalance = responseData.currentBalance\r",
+											"pm.collectionVariables.set(\"balance_customer1\", c1CurrentBalance)\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"     pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the all the response keys\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\")\r",
+											"    pm.expect(responseData).have.property(\"trnxId\")\r",
+											"    pm.expect(responseData).have.property(\"fee\")\r",
+											"    pm.expect(responseData).have.property(\"currentBalance\")\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"C1 withdraw from Agent; Validate the successful message: Withdraw successful\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Withdraw successful\")\r",
+											"})\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{customer1_number}}\",\r\n  \"to_account\":\"{{agent_mumber}}\",\r\n  \"amount\":10\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/withdraw",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"withdraw"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Check Customer 1 balance after withdraw",
+			"item": [
+				{
+					"name": "check Customer 1 balance after withdraw",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const c1CurrentBalance = pm.collectionVariables.get(\"balance_customer1\")\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 1 balance; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 1 balance; Validate the successful message: User balance\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User balance\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/balance/{{customer1_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"balance",
+								"{{customer1_number}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Balance transfer from Customer 1 to Customer 2",
+			"item": [
+				{
+					"name": "Negative scenario",
+					"item": [
+						{
+							"name": "balance transfer (insufficient) from C1 to C2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const c1CurrentBalance = pm.collectionVariables.get(\"balance_customer1\")\r",
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Balance transfer from C1 to C2; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"     pm.response.to.have.status(208)\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Balance transfer from C1 to C2; Validate the successful message: Insufficient balance\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Insufficient balance\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Balance transfer from C1 to C2; Validate the current balance of the customer 1\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"currentBalance\") \r",
+											"    pm.expect(Number(responseData.currentBalance)).to.eql(Number(c1CurrentBalance))\r",
+											"\r",
+											"})\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{customer1_number}}\",\r\n  \"to_account\":\"{{customer2_number}}\",\r\n  \"amount\":100000\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/sendmoney",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"sendmoney"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenarios",
+					"item": [
+						{
+							"name": "balance transfer from C1 to C2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"const c1CurrentBalance = responseData.currentBalance\r",
+											"pm.collectionVariables.set(\"balance_customer1\", c1CurrentBalance)\r",
+											"\r",
+											"pm.test(\"Send money from C1 to C2; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"     pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Send money from C1 to C2; Validate the all the response keys\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\")\r",
+											"    pm.expect(responseData).have.property(\"trnxId\")\r",
+											"    pm.expect(responseData).have.property(\"fee\")\r",
+											"    pm.expect(responseData).have.property(\"currentBalance\")\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Send money from C1 to C2; Validate the successful message: Send money successful\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Send money successful\")\r",
+											"})\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{customer1_number}}\",\r\n  \"to_account\":\"{{customer2_number}}\",\r\n  \"amount\":20\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/sendmoney",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"sendmoney"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Payment from Customer 2 to Merchant",
+			"item": [
+				{
+					"name": "Negative scenarios",
+					"item": [
+						{
+							"name": "payment (insufficiant) from C2 to Merchant",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Send insufficiant money from C1 to C2; Validate the Status code: 208\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(208)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Send money from C1 to C2; Validate the successful message: Payment successful\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Insufficient balance\")\r",
+											"})\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{customer2_number}}\",\r\n  \"to_account\":\"{{merchant_number}}\",\r\n  \"amount\":100000\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/payment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"payment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive scenarios",
+					"item": [
+						{
+							"name": "payment from C2 to Merchant Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json()\r",
+											"const c2CurrentBalance = responseData.currentBalance\r",
+											"pm.collectionVariables.set(\"balance_customer2\", c2CurrentBalance)\r",
+											"\r",
+											"pm.test(\"Send money from C1 to C2; Validate the Status code: 201\", function()\r",
+											"{\r",
+											"    pm.response.to.have.status(201)\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Send money from C1 to C2; Validate the all the response keys\", function()\r",
+											"{\r",
+											"    pm.expect(responseData).have.property(\"message\")\r",
+											"    pm.expect(responseData).have.property(\"trnxId\")\r",
+											"    pm.expect(responseData).have.property(\"fee\")\r",
+											"    pm.expect(responseData).have.property(\"currentBalance\")\r",
+											"\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Send money from C1 to C2; Validate the successful message: Payment successful\", function()\r",
+											"{ \r",
+											"    pm.expect(responseData).have.property(\"message\") \r",
+											"    pm.expect(responseData.message).to.eql(\"Payment successful\")\r",
+											"})\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{authToken}}",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTH-SECRET-KEY",
+										"value": "{{secretKey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"from_account\":\"{{customer2_number}}\",\r\n  \"to_account\":\"{{merchant_number}}\",\r\n  \"amount\":10\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/transaction/payment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"payment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test cases - Check balance, limit, statement of Customer 2",
+			"item": [
+				{
+					"name": "check Customer 2 limit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const c2CurrentLimit = pm.collectionVariables.get(\"limit_customer2\")\r",
+									"\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 2 limit; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 limit; Validate the message: User limit\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User limit\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/limit/{{customer2_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"limit",
+								"{{customer2_number}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check Customer 2 balance",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const c2CurrentBalance = pm.collectionVariables.get(\"balance_customer2\")\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 2 balance; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 balance; Validate the successful message: User balance\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User balance\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/balance/{{customer2_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"balance",
+								"{{customer2_number}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check Customer 2 statement",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the successful message: Transaction list\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"Transaction list\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the Count of the transaction numbers\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"count\") \r",
+									"   pm.expect(responseData.count).to.equal(responseData.transactions.length)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the Transactions values: account and to_account value for every transactions\", function()\r",
+									"{   \r",
+									"    const firstAccount = responseData.transactions[0].account\r",
+									"\r",
+									"    responseData.transactions.forEach((transaction, index) => {\r",
+									"        pm.expect(transaction).to.have.keys([\r",
+									"            \"id\",\r",
+									"            \"account\",\r",
+									"            \"from_account\",\r",
+									"            \"to_account\",\r",
+									"            \"description\",\r",
+									"            \"trnxId\",\r",
+									"            \"debit\",\r",
+									"            \"credit\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\"\r",
+									"        ])\r",
+									"        pm.expect(transaction.account, `Mismatch in 'account' at transaction ${index + 1}`)\r",
+									"            .to.equal(firstAccount)\r",
+									"\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/statement/{{customer2_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"statement",
+								"{{customer2_number}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Cases - Check Merchant balance and statement",
+			"item": [
+				{
+					"name": "check Merchant balance",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Merchant balance; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Merchant balance; Validate the successful message: User balance\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User balance\")\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/balance/{{merchant_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"balance",
+								"{{merchant_number}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check Merchant statement",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"     pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the successful message: Transaction list\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"Transaction list\")\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the Count of the transaction numbers\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"count\") \r",
+									"   pm.expect(responseData.count).to.equal(responseData.transactions.length)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check Customer 2 statement; Validate the Transactions values: account and to_account value for every transactions\", function()\r",
+									"{   \r",
+									"    const firstAccount = responseData.transactions[0].account;\r",
+									"    const firstToAccount = responseData.transactions[0].to_account;\r",
+									"\r",
+									"    responseData.transactions.forEach((transaction, index) => {\r",
+									"        pm.expect(transaction).to.have.keys([\r",
+									"            \"id\",\r",
+									"            \"account\",\r",
+									"            \"from_account\",\r",
+									"            \"to_account\",\r",
+									"            \"description\",\r",
+									"            \"trnxId\",\r",
+									"            \"debit\",\r",
+									"            \"credit\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\"\r",
+									"        ])\r",
+									"        pm.expect(transaction.account, `Mismatch in 'account' at transaction ${index + 1}`)\r",
+									"            .to.equal(firstAccount);\r",
+									"        pm.expect(transaction.to_account, `Mismatch in 'to_account' at transaction ${index + 1}`)\r",
+									"            .to.equal(firstToAccount);\r",
+									"\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/transaction/statement/{{merchant_number}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"statement",
+								"{{merchant_number}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Customer 2",
+			"item": [
+				{
+					"name": "Delete Customer 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"userId\", \"\")\r",
+									"const responseData = pm.response.json()\r",
+									"\r",
+									"pm.test(\"Delete Customer 2; Validate the Status code: 200\", function()\r",
+									"{\r",
+									"    pm.response.to.have.status(200)\r",
+									"\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Delete Customer 2; Validate the message: User deleted successfully\", function()\r",
+									"{ \r",
+									"    pm.expect(responseData).have.property(\"message\") \r",
+									"    pm.expect(responseData.message).to.eql(\"User deleted successfully\")\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTH-SECRET-KEY",
+								"value": "{{secretKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/delete/{{userId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"delete",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "secretKey",
+			"value": "ROADTOSDET",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "phone_number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "nid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "role",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "agent_mumber",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "merchant_number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customer1_number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customer2_number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "account_from",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "account_to",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "amount",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "transactionID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "balance_agent",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "balance_customer1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "balance_customer2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "balance_merchant",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "limit_customer1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "limit_customer2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "invalidUserId",
+			"value": "00000",
+			"type": "string"
+		},
+		{
+			"key": "invalid_agentNumber",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
